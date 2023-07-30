@@ -1,4 +1,4 @@
-# bloc-gta-mod
+# Sentient Streets: AI Story Mode Source Code
 
 ## Requirements
 
