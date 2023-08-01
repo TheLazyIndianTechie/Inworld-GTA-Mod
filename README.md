@@ -1,4 +1,14 @@
+![Source Code Banner](_resource/gitbanner.jpg)
 # Sentient Streets: AI Story Mode Source Code
+
+### [See the Demo Video](https://youtu.be/cu4g743ONoo)
+
+## Ready-to-Play Version
+Mod is already released and can be downloaded and played. If you are not interested in source code, please visit
+https://www.nexusmods.com/gta5/mods/672
+and 
+https://gtainworldmod.netlify.app/
+to start playing with the mod.
 
 ## Requirements
 

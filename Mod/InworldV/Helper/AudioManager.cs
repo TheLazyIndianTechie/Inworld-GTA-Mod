@@ -36,12 +36,27 @@ namespace InworldV.Helper
             try
             {
                 _currentSoundtrack = new AudioFileReader(GetTrackPath(trackId));
-                _currentSoundtrack.Volume = 0.4f;
+                _currentSoundtrack.Volume = soundtrackVolume;
                 _soundtrackPlayer = new WaveOutEvent();
                 _soundtrackPlayer.Init(_currentSoundtrack);
                 _soundtrackPlayer.Play();
             }
             catch { }
+        }
+
+        private float soundtrackVolume = 0.4f;
+        public void DecreaseSoundtrackVolume()
+        {
+            soundtrackVolume = Math.Max(0f, soundtrackVolume - 0.05f);
+            if (_currentSoundtrack != null)
+                _currentSoundtrack.Volume = soundtrackVolume;
+        }
+
+        public void IncreaseSoundtrackVolume()
+        {
+            soundtrackVolume = Math.Min(soundtrackVolume + 0.05f, 0.4f);
+            if (_currentSoundtrack != null)
+                _currentSoundtrack.Volume = soundtrackVolume;
         }
 
         public void StopSoundtrack()
@@ -56,6 +71,7 @@ namespace InworldV.Helper
 
         private void FadeOutSoundtrack()
         {
+            if (_currentSoundtrack == null) return;
             while (_currentSoundtrack?.Volume > 0)
             {
                 lock (_volumeLock)
@@ -187,7 +203,8 @@ namespace InworldV.Helper
         {
             if (_player != null)
                 _player.Stop();
-            _streamQueue.Clear();
+            if (_streamQueue != null)
+                _streamQueue.Clear();
         }
 
         private void WaveSource_DataAvailable(object sender, WaveInEventArgs e)

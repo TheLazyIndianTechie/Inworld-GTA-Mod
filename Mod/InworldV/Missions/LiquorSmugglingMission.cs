@@ -78,6 +78,7 @@ namespace InworldV.Missions
             if (mafiaBossPed == null) return false;
             if (mafiaBossPed.Position.DistanceTo(Game.Player.Character.Position) < 5)
             {
+                isCharacterConnectionRequested = true;
                 return true;
             }
             else
@@ -140,6 +141,23 @@ namespace InworldV.Missions
             goonBlips.Add(mafiaBossPed, blBoss);
             blip.Delete();
             blip = null;
+        }
+
+        private int incomingMessageTime = 0;
+        private bool isCharacterConnectionRequested = false;
+        private bool shownOnce = false;
+        public override void TickIncomingMessage()
+        {
+            if (!isCharacterConnectionRequested) return;
+            incomingMessageTime++;
+            if (this.currentStage == MissionStage.NONE)
+            {
+                if (incomingMessageTime >= 4 && !shownOnce)
+                {
+                    shownOnce = true;
+                    this.currentStage = MissionStage.DECIDE;
+                }
+            }
         }
 
         private void Stage()

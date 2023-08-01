@@ -30,7 +30,7 @@ namespace InworldV.Scenario
     {
         private readonly string TITLE = "Sentient Streets: AI Mod";
         private readonly int FADE_TIME = 2000;
-        private readonly int COMMENT_COOLOFF = 15000;
+        private readonly int COMMENT_COOLOFF = 35000;
         private readonly int MISSION_WAIT_TIME = 30000;
 
         private Ped connectedPed;
@@ -50,13 +50,13 @@ namespace InworldV.Scenario
         private float lastBadSkillComment = 0;
         private bool fadeInRequired = false;
         private bool isEndOfMissions = false;
-        private bool didFinishedMod = false;
         private float TextShownTime = 0;
         private float fadeInTime = -1;
         private float LAST_MS_CHECKED_FOR_MISSION = 0;
         private float CURRENT_ELAPSED_MS = 0;
         private float showFinishScreen = -1;
 
+        public bool DidFinishedMod = false;
         public string PLAYER_NAME;
         public bool IsCurrentMissionActive
         {
@@ -412,7 +412,7 @@ namespace InworldV.Scenario
         public string GetScenarioCharacter(out string playerName)
         {
 
-            if (didFinishedMod)
+            if (DidFinishedMod)
             {
                 playerName = string.Empty;
                 return string.Empty;
@@ -528,7 +528,7 @@ namespace InworldV.Scenario
                 CarBlip.Delete();
                 CarBlip = null;
                 MISSION_DAY++;
-                didFinishedMod = true;
+                DidFinishedMod = true;
                 return true;
             }
 

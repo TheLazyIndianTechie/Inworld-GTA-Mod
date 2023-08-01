@@ -79,11 +79,30 @@ namespace InworldV.Missions
             if (bruciePed == null) return false;
             if (bruciePed.Position.DistanceTo(Game.Player.Character.Position) < 5)
             {
+                isCharacterConnectionRequested = true;
                 return true;
             }
             else
             {
                 return false;
+            }
+        }
+
+
+        private int incomingMessageTime = 0;
+        private bool isCharacterConnectionRequested = false;
+        private bool shownOnce = false;
+        public override void TickIncomingMessage()
+        {
+            if (!isCharacterConnectionRequested) return;
+            incomingMessageTime++;
+            if (this.currentStage != MissionStage.GO_CAR_ACTION && this.currentStage != MissionStage.GO_CAR)
+            {
+                if (incomingMessageTime >= 10 && !shownOnce)
+                {
+                    shownOnce = true;
+                    this.currentStage = MissionStage.GO_CAR;
+                }
             }
         }
 
